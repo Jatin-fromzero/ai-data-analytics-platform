@@ -1,4 +1,6 @@
 import { useState } from "react";
+import TopBar from '@/components/course/TopBar';
+import Hero from '@/components/course/Hero';
 
 // ─── QUIZ DATA ───────────────────────────────────────────────
 const quizQuestions = [
@@ -40,49 +42,20 @@ const quizQuestions = [
 ];
 
 // ─── LESSON SECTIONS ─────────────────────────────────────────
-const sections = [
-  { id: "what", label: "What is Analytics?" },
-  { id: "types", label: "4 Types" },
-  { id: "lifecycle", label: "Lifecycle" },
-  { id: "roles", label: "Roles & Stack" },
-  { id: "aitools", label: "AI Tools" },
-  { id: "setup", label: "Setup" },
-  { id: "quiz", label: "🧠 Quiz" },
-];
+  return (
+    <div style={{ minHeight: "100vh", background: "#07070E", color: "#DDD8F0", fontFamily: "Georgia, 'Times New Roman', serif" }}>
 
-const analyticsTypes = [
-  {
-    type: "Descriptive",
-    question: "What happened?",
-    color: "#4FC3F7",
-    bg: "#0A1F2E",
-    pct: 80,
-    example: "Monthly sales report showing revenue was $2.4M in Q3.",
-    tools: ["Excel", "SQL", "Tableau", "Power BI"],
-    used: "Most common — 80% of analytics work is descriptive.",
-    icon: "📊",
-  },
-  {
-    type: "Diagnostic",
-    question: "Why did it happen?",
-    color: "#81C784",
-    bg: "#0A1F12",
-    pct: 60,
-    example: "Sales dropped because 3 top clients churned after a pricing change.",
-    tools: ["SQL drill-down", "Python EDA", "Correlation analysis"],
-    used: "Root cause analysis, used when performance deviates.",
-    icon: "🔍",
-  },
-  {
-    type: "Predictive",
-    question: "What will happen?",
-    color: "#FFD54F",
-    bg: "#1F1A0A",
-    pct: 40,
-    example: "Based on trends, Q4 sales will likely be $2.8M.",
-    tools: ["Python ML", "Scikit-learn", "Time series", "AutoML"],
-    used: "Forecasting, churn prediction, demand planning.",
-    icon: "🔮",
+      <TopBar sections={sections} active={activeSection} onSelect={scrollTo} />
+
+      <Hero
+        headingHtml={<>
+          Introduction to<br />
+          <span style={{ color: "#FF8C42" }}>Data Analytics</span><br />
+          <span style={{ fontStyle: "italic", fontWeight: 400, fontSize: "0.7em", color: "#888" }}>& The AI Era</span>
+        </>}
+        description={"Before writing a single line of code or query, you need to understand the landscape — what data analytics actually is, how it's done, who does it, and how AI tools are reshaping the entire field in 2025."}
+        tags={["~3 hours", "5 concepts", "1 quiz", "5 AI tools introduced"]}
+      />
   },
   {
     type: "Prescriptive",
