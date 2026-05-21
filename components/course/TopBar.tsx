@@ -1,16 +1,17 @@
+/* eslint-disable no-unused-vars */
 "use client";
 
 import React from 'react';
 
-interface Section {
-  id: string;
+type TopBarSection = {
+  value: string;
   label: string;
-}
+};
 
 interface Props {
-  sections: Section[];
+  sections: TopBarSection[];
   active: string;
-  onSelect: (id: string) => void;
+  onSelect: (value: string) => void;
 }
 
 export default function TopBar({ sections, active, onSelect }: Props) {
@@ -22,8 +23,8 @@ export default function TopBar({ sections, active, onSelect }: Props) {
         </div>
         {sections.map((s) => (
           <button
-            key={s.id}
-            onClick={() => onSelect(s.id)}
+            key={s.value}
+            onClick={() => onSelect(s.value)}
             style={{
               background: "none",
               border: "none",
@@ -32,8 +33,8 @@ export default function TopBar({ sections, active, onSelect }: Props) {
               fontFamily: "inherit",
               fontSize: 11,
               letterSpacing: "0.08em",
-              color: active === s.id ? "#FF8C42" : "#444",
-              borderBottom: active === s.id ? "2px solid #FF8C42" : "2px solid transparent",
+              color: active === s.value ? "#FF8C42" : "#444",
+              borderBottom: active === s.value ? "2px solid #FF8C42" : "2px solid transparent",
               transition: "all 0.2s",
               whiteSpace: "nowrap",
             }}
