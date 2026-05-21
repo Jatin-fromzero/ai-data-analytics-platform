@@ -21,10 +21,10 @@ export default function TopBar({ sections, active, onSelect }: Props) {
         <div style={{ fontSize: 10, color: "#FF8C42", letterSpacing: "0.2em", textTransform: "uppercase", paddingRight: 20, borderRight: "1px solid #1A1A2E", marginRight: 16, whiteSpace: "nowrap", padding: "14px 20px 14px 0" }}>
           P1 · PART 1
         </div>
-        {sections.map((s) => (
+        {sections.map((section) => (
           <button
-            key={s.value}
-            onClick={() => onSelect(s.value)}
+            key={section.value}
+            onClick={() => onSelect(section.value)}
             style={{
               background: "none",
               border: "none",
@@ -33,13 +33,13 @@ export default function TopBar({ sections, active, onSelect }: Props) {
               fontFamily: "inherit",
               fontSize: 11,
               letterSpacing: "0.08em",
-              color: active === s.value ? "#FF8C42" : "#444",
-              borderBottom: active === s.value ? "2px solid #FF8C42" : "2px solid transparent",
+              color: active === section.value ? "#FF8C42" : "#444",
+              borderBottom: active === section.value ? "2px solid #FF8C42" : "2px solid transparent",
               transition: "all 0.2s",
               whiteSpace: "nowrap",
             }}
           >
-            {s.label}
+            {section.label}
           </button>
         ))}
       </div>
