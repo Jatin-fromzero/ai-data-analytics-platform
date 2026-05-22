@@ -1,6 +1,8 @@
 import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -9,12 +11,18 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow: {
-        glow: '0 24px 120px rgba(15,23,42,0.18)'
+        glow: 'var(--shadow)'
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
       },
       colors: {
+        background: 'hsl(var(--bg) / <alpha-value>)',
+        foreground: 'hsl(var(--text) / <alpha-value>)',
+        surface: 'hsl(var(--surface) / <alpha-value>)',
+        'surface-2': 'hsl(var(--surface-2) / <alpha-value>)',
+        border: 'hsl(var(--border) / <alpha-value>)',
+        muted: 'hsl(var(--muted) / <alpha-value>)',
         brand: {
           DEFAULT: '#FF6B35',
           50: '#FFF1E9',
@@ -31,7 +39,7 @@ const config: Config = {
       }
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [typography]
 };
 
 export default config;

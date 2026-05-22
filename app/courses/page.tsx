@@ -28,8 +28,8 @@ export default function CoursesPage() {
     <div className="space-y-12">
       <div className="space-y-4">
         <p className="text-sm uppercase tracking-[0.2em] text-brand">Course catalog</p>
-        <h1 className="text-4xl font-bold tracking-tight text-white">Structured modules for analytics and AI careers.</h1>
-        <p className="max-w-2xl text-slate-400">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">Structured modules for analytics and AI careers.</h1>
+        <p className="max-w-2xl text-muted">
           The course layer should be built with reusable content blocks, modular lessons, and a clear phase-based curriculum.
         </p>
       </div>
@@ -39,12 +39,12 @@ export default function CoursesPage() {
           <Card key={course.id} className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-slate-300">{course.category}</p>
-                <h2 className="text-2xl font-semibold text-white">{course.title}</h2>
+                <p className="text-sm font-semibold text-muted">{course.category}</p>
+                <h2 className="text-2xl font-semibold text-foreground">{course.title}</h2>
               </div>
               <Badge variant="secondary">{course.timeline}</Badge>
             </div>
-            <p className="text-slate-400">{course.description}</p>
+            <p className="text-muted">{course.description}</p>
             <Button asChild>
               <Link href={`/courses/${course.slug}`}>View details</Link>
             </Button>

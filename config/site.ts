@@ -10,7 +10,10 @@ export const siteConfig = {
 
 export const mainNav = [
   { title: 'Home', href: '/' },
-  { title: 'Courses', href: '/courses' },
-  { title: 'Career', href: '/career' },
-  { title: 'Dashboard', href: '/dashboard' }
+  { title: 'Learning Hubs', href: '/learning' },
+  { title: 'Syllabus', href: '/syllabus' },
+  { title: 'Projects', href: '/projects' },
+  { title: 'Career Outcomes', href: '/career-outcomes' },
+  { title: 'About', href: '/about' },
+  { title: 'Contact', href: '/contact' }
 ];
