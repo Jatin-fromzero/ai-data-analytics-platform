@@ -1,3 +1,5 @@
+"use client";
+// @ts-nocheck
 import React from "react";
 
 export default function Phase1Part1() {

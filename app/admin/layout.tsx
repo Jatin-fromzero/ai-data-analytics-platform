@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { AdminNav } from './AdminNav';
 import { AdminHeader } from './AdminHeader';

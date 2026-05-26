@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/lib/auth-context';
 import { Button } from '@/components/ui/button';
 
@@ -25,7 +26,7 @@ export function AdminHeader() {
             <p className="text-xs text-brand font-medium">Administrator</p>
           </div>
           <div className="h-9 w-9 rounded-full bg-slate-800 overflow-hidden border border-border">
-            {user?.avatar && <img src={user.avatar} alt="Avatar" className="h-full w-full object-cover" />}
+            {user?.avatar && <Image src={user.avatar} alt="Avatar" width={36} height={36} className="h-full w-full object-cover" />}
           </div>
         </div>
         <div className="h-6 w-px bg-slate-800" />

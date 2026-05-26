@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/auth-context';
 import { Button } from '@/components/ui/button';
 
@@ -29,7 +30,7 @@ export function DashboardHeader() {
             <p className="text-xs text-brand font-medium">Data Analytics Student</p>
           </div>
           <div className="h-8 w-8 rounded-full bg-slate-800 overflow-hidden border border-border">
-            {user?.avatar && <img src={user.avatar} alt="Avatar" className="h-full w-full object-cover" />}
+            {user?.avatar && <Image src={user.avatar} alt="Avatar" width={32} height={32} className="h-full w-full object-cover" />}
           </div>
         </div>
         <div className="h-6 w-px bg-slate-800" />

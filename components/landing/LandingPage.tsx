@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -8,7 +8,9 @@ import { SectionHeading } from './SectionHeading';
 import { LandingCard } from './LandingCard';
 import { CareerProgressTracker } from './CareerProgressTracker';
 import { AIMentorVisual } from './AIMentorVisual';
-import { AIMentorChat } from './AIMentorChat';
+import { StudentSuccess } from './StudentSuccess';
+import { PortfolioShowcase } from './PortfolioShowcase';
+import { TransformationStory } from './TransformationStory';
 import {
   FadeUp,
   ScrollReveal,
@@ -17,38 +19,22 @@ import {
   HoverCard,
   PageReveal,
 } from '@/components/ui/motion';
+
 import {
   trustStats,
   quickHighlights,
-  outcomes,
-  aiTools,
-  roadmap,
-  projects,
   features,
   testimonials
 } from '@/data/landing-data';
 
 export default function LandingPage() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [initialChatMessage, setInitialChatMessage] = useState<string | undefined>();
-
-  const handleOpenChat = (msg?: string) => {
-    setInitialChatMessage(msg);
-    setIsChatOpen(true);
-  };
-
   return (
     <PageReveal>
       <div className="space-y-20 md:space-y-28 lg:space-y-36">
-        <AIMentorChat 
-          isOpen={isChatOpen} 
-          onClose={() => setIsChatOpen(false)} 
-          initialMessage={initialChatMessage} 
-        />
 
         {/* ── HERO SECTION ─────────────────────────────────────────────────── */}
-        <section className="hero-grid-bg relative overflow-hidden rounded-[2rem] border border-border/50 bg-gradient-to-br from-slate-950 via-slate-950 to-brand/[0.02] px-6 py-14 sm:px-10 md:py-20 lg:px-14">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_420px] lg:gap-16">
+        <section className="hero-grid-bg relative overflow-hidden rounded-[2.5rem] border border-border/50 bg-gradient-to-br from-surface via-background to-brand/5 px-6 py-16 sm:px-12 md:py-24 lg:px-16 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
 
             {/* LEFT — Text content */}
             <div className="space-y-8 min-w-0">
@@ -60,24 +46,28 @@ export default function LandingPage() {
               </FadeUp>
 
               <FadeUp delay={0.08}>
-                <div className="space-y-5">
-                  <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl xl:text-6xl">
+                <div className="space-y-6">
+                  <h1 className="text-4xl font-extrabold leading-[1.15] tracking-tight text-foreground sm:text-5xl lg:text-6xl lg:leading-[1.15]">
                     Go from zero to{' '}
-                    <span className="text-brand">job-ready data analyst</span>{' '}
-                    with AI-first workflows.
+                    <span className="text-brand relative inline-block">
+                      job-ready data analyst
+                      <svg className="absolute -bottom-2 left-0 w-full h-3 text-brand/30" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" fill="none"/></svg>
+                    </span>{' '}
+                    <br className="hidden lg:block" />
+                    with AI workflows.
                   </h1>
-                  <p className="max-w-lg text-base leading-7 text-muted sm:text-lg">
-                    Master SQL, Python, Tableau, and cloud databases. Build a resume-ready portfolio of 5 real-world capstones using modern AI developer tools to work 10x faster.
+                  <p className="max-w-xl text-lg leading-relaxed text-muted sm:text-xl font-light">
+                    Master SQL, Python, and Tableau. Build a premium portfolio of capstone projects using modern AI developer tools to work <strong className="font-semibold text-foreground">10x faster</strong>.
                   </p>
                 </div>
               </FadeUp>
 
               <FadeUp delay={0.15}>
-                <div className="flex flex-wrap gap-3">
-                  <Button size="lg" className="shadow-lg shadow-brand/20">
+                <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                  <Button size="lg" className="shadow-[0_0_40px_rgba(255,107,53,0.3)] h-12 px-8 rounded-full text-base">
                     Explore Syllabus
                   </Button>
-                  <Button variant="secondary" size="lg" asChild>
+                  <Button variant="secondary" size="lg" className="h-12 px-8 rounded-full text-base border border-border bg-surface hover:bg-surface-2" asChild>
                     <Link href="/career-outcomes">See Career Path</Link>
                   </Button>
                 </div>
@@ -117,7 +107,7 @@ export default function LandingPage() {
 
             {/* RIGHT — AI Mentor Visual */}
             <FadeUp delay={0.2} className="flex items-center justify-center pb-14 lg:pb-16">
-              <AIMentorVisual onOpenChat={handleOpenChat} />
+              <AIMentorVisual />
             </FadeUp>
           </div>
         </section>
@@ -138,113 +128,14 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── OUTCOMES SECTION ─────────────────────────────────────────────── */}
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl space-y-10">
-            <ScrollReveal>
-              <SectionHeading
-                badge="Trusted by learners"
-                title="Real outcomes from a modern analytics experience"
-                description="A clear path from beginner to job-ready, with practical projects, AI workflows, and hiring tools built into every step."
-              />
-            </ScrollReveal>
-            <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {outcomes.map((item) => (
-                <StaggerItem key={item.title}>
-                  <HoverCard>
-                    <LandingCard
-                      icon={item.icon}
-                      title={item.title}
-                      description={item.description}
-                      className="h-full transition-colors hover:border-border/80"
-                    />
-                  </HoverCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
+        {/* ── STUDENT SUCCESS (Social Proof) ─────────────────────────────── */}
+        <StudentSuccess />
 
-        {/* ── AI TOOLS SECTION ─────────────────────────────────────────────── */}
-        <section className="border-y border-border/50 bg-background/95 px-4 py-16 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl space-y-10">
-            <ScrollReveal>
-              <SectionHeading
-                title="AI tools for every analytics workflow"
-                description="Use the tools modern teams rely on to speed analysis, automate tasks, and produce polished results."
-              />
-            </ScrollReveal>
-            <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {aiTools.map((tool) => (
-                <StaggerItem key={tool.name}>
-                  <HoverCard>
-                    <LandingCard
-                      icon={tool.icon}
-                      title={tool.name}
-                      description={tool.description}
-                      className="h-full transition-colors hover:border-border/80"
-                    />
-                  </HoverCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
+        {/* ── TRANSFORMATION STORY (Scroll Journey) ──────────────────────── */}
+        <TransformationStory />
 
-        {/* ── ROADMAP SECTION ──────────────────────────────────────────────── */}
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl space-y-10">
-            <ScrollReveal>
-              <SectionHeading
-                badge="Learning roadmap"
-                title="A clear path from first lesson to first hire"
-                description="Each stage focuses on outcomes: skill foundation, hands-on projects, and career launch preparation."
-              />
-            </ScrollReveal>
-            <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {roadmap.map((step) => (
-                <StaggerItem key={step.step}>
-                  <HoverCard>
-                    <LandingCard
-                      icon={<span className="text-sm font-mono font-bold text-brand">{step.step}</span>}
-                      title={step.title}
-                      description={step.description}
-                      className="h-full transition-colors hover:border-border/80"
-                    />
-                  </HoverCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-
-        {/* ── PROJECTS SECTION ─────────────────────────────────────────────── */}
-        <section className="border-y border-border/50 bg-background/95 px-4 py-16 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl space-y-10">
-            <ScrollReveal>
-              <SectionHeading
-                badge="Real-world projects"
-                title="Build portfolio-ready analytics work"
-                description="Apply every skill with project-based learning that mirrors real business problems and hiring expectations."
-              />
-            </ScrollReveal>
-            <StaggerContainer className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project) => (
-                <StaggerItem key={project.title}>
-                  <HoverCard className="h-full">
-                    <Card className="h-full rounded-[2rem] p-6 transition-colors hover:border-border/60">
-                      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand">
-                        Project Showcase
-                      </p>
-                      <h3 className="mt-4 text-xl font-bold text-foreground">{project.title}</h3>
-                      <p className="mt-2 text-sm leading-6 text-muted">{project.highlight}</p>
-                    </Card>
-                  </HoverCard>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
+        {/* ── PORTFOLIO SHOWCASE (Bento Box) ─────────────────────────────── */}
+        <PortfolioShowcase />
 
         {/* ── FEATURES SECTION ─────────────────────────────────────────────── */}
         <section className="px-4 sm:px-6 lg:px-8">

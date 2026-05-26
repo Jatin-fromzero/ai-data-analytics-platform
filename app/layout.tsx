@@ -4,6 +4,7 @@ import '../styles/globals.css';
 import { Providers } from './providers';
 import { siteConfig } from '@/config/site';
 import { Shell } from '@/components/layout/shell';
+import { GlobalAIMentor } from '@/components/GlobalAIMentor';
 
 export const metadata: Metadata = {
   title: {
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Providers>
           <Shell>{children}</Shell>
+          <GlobalAIMentor />
         </Providers>
       </body>
     </html>

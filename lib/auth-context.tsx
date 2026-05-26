@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password?: string) => {
+  const login = async (email: string, _password?: string) => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 800));
 

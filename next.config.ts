@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     // on minor unused variable warnings while we iterate.
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ui-avatars.com',
+        pathname: '/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {
