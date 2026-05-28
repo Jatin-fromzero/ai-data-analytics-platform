@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model adminsettings {
+  id              String   @id
+  maintenanceMode Boolean  @default(false)
+  platformName    String   @default("Data Analytics Platform")
+  supportEmail    String
+  updatedAt       DateTime
+}
+
+model aimentorcontext {
+  id             String   @id
+  globalPrompt   String   @db.Text
+  lessonAware    Boolean  @default(true)
+  codeVerify     Boolean  @default(false)
+  socraticMethod Boolean  @default(true)
+  updatedAt      DateTime
+}
+
+model coupon {
+  id          String       @id
+  code        String       @unique(map: "Coupon_code_key")
+  discountPct Int
+  maxUses     Int?
+  usedCount   Int          @default(0)
+  validUntil  DateTime?
+  createdAt   DateTime     @default(now())
+  enrollment  enrollment[]
+}
+
+model course {
+  id           String         @id
+  slug         String         @unique(map: "Course_slug_key")
+  title        String
+  description  String?        @db.Text
+  status       course_status  @default(DRAFT)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  courseaccess courseaccess[]
+  enrollment   enrollment[]
+  phase        phase[]
+}
+
+model courseaccess {
+  id        String   @id
+  userId    String
+  courseId  String
+  grantedBy String
+  reason    String?
+  createdAt DateTime @default(now())
+  course    course   @relation(fields: [courseId], references: [id], onDelete: Cascade, map: "CourseAccess_courseId_fkey")
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "CourseAccess_userId_fkey")
+
+  @@unique([userId, courseId], map: "CourseAccess_userId_courseId_key")
+  @@index([courseId], map: "CourseAccess_courseId_fkey")
+}
+
+model enrollment {
+  id        String            @id
+  userId    String
+  courseId  String
+  status    enrollment_status @default(ACTIVE)
+  couponId  String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime
+  coupon    coupon?           @relation(fields: [couponId], references: [id], map: "Enrollment_couponId_fkey")
+  course    course            @relation(fields: [courseId], references: [id], onDelete: Cascade, map: "Enrollment_courseId_fkey")
+  user      user              @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Enrollment_userId_fkey")
+
+  @@unique([userId, courseId], map: "Enrollment_userId_courseId_key")
+  @@index([couponId], map: "Enrollment_couponId_idx")
+  @@index([courseId], map: "Enrollment_courseId_idx")
+  @@index([userId], map: "Enrollment_userId_idx")
+}
+
+model lesson {
+  id             String           @id
+  partId         String
+  title          String
+  type           lesson_type      @default(VIDEO)
+  content        String?          @db.LongText
+  videoUrl       String?
+  order          Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  part           part             @relation(fields: [partId], references: [id], onDelete: Cascade, map: "Lesson_partId_fkey")
+  lessonprogress lessonprogress[]
+
+  @@index([partId], map: "Lesson_partId_idx")
+}
+
+model lessonprogress {
+  id        String   @id
+  userId    String
+  lessonId  String
+  completed Boolean  @default(false)
+  timeSpent Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  lesson    lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade, map: "LessonProgress_lessonId_fkey")
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "LessonProgress_userId_fkey")
+
+  @@unique([userId, lessonId], map: "LessonProgress_userId_lessonId_key")
+  @@index([lessonId], map: "LessonProgress_lessonId_idx")
+  @@index([userId], map: "LessonProgress_userId_idx")
+}
+
+model part {
+  id          String   @id
+  phaseId     String
+  title       String
+  description String?  @db.Text
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  lesson      lesson[]
+  phase       phase    @relation(fields: [phaseId], references: [id], onDelete: Cascade, map: "Part_phaseId_fkey")
+
+  @@index([phaseId], map: "Part_phaseId_idx")
+}
+
+model phase {
+  id          String   @id
+  courseId    String
+  title       String
+  description String?  @db.Text
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  part        part[]
+  course      course   @relation(fields: [courseId], references: [id], onDelete: Cascade, map: "Phase_courseId_fkey")
+
+  @@index([courseId], map: "Phase_courseId_idx")
+}
+
+model user {
+  id             String           @id
+  email          String           @unique(map: "User_email_key")
+  passwordHash   String
+  name           String
+  role           user_role        @default(STUDENT)
+  avatarUrl      String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  courseaccess   courseaccess[]
+  enrollment     enrollment[]
+  lessonprogress lessonprogress[]
+}
+
+enum lesson_type {
+  VIDEO
+  TEXT
+  QUIZ
+}
+
+enum enrollment_status {
+  ACTIVE
+  REVOKED
+  COMPLETED
+}
+
+enum course_status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum user_role {
+  GUEST
+  DEMO
+  STUDENT
+  ADMIN
+  SUPER_ADMIN
+}

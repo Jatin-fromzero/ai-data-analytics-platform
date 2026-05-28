@@ -4,7 +4,7 @@ import { mainNav, siteConfig } from '@/config/site';
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/70 bg-background/95 px-4 py-14 text-muted sm:px-6 lg:px-8">
-      <div className="container grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="container grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="space-y-4 sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-3">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand text-sm font-bold text-foreground shrink-0">
@@ -38,6 +38,18 @@ export function SiteFooter() {
             <Link href="/contact" className="block transition hover:text-foreground">
               Contact us
             </Link>
+        </div>
+        </div>
+
+        <div className="space-y-4 text-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted">Legal</p>
+          <div className="space-y-3">
+            <Link href="/terms" className="block transition hover:text-foreground">
+              Terms of Service
+            </Link>
+            <Link href="/privacy" className="block transition hover:text-foreground">
+              Privacy Policy
+            </Link>
           </div>
         </div>
       </div>
@@ -45,8 +57,8 @@ export function SiteFooter() {
       <div className="container mt-12 flex flex-col gap-2 border-t border-border/70 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 {siteConfig.name}. Built for future-ready analytics teams.</p>
         <div className="flex gap-4">
-          <Link href="#" className="hover:text-muted transition-colors">Privacy</Link>
-          <Link href="#" className="hover:text-muted transition-colors">Terms</Link>
+          <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+          <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>
         </div>
       </div>
     </footer>

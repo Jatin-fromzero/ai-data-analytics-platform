@@ -27,7 +27,7 @@ export function DashboardHeader() {
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-medium text-foreground">{user?.name}</p>
-            <p className="text-xs text-brand font-medium">Data Analytics Student</p>
+            <p className="text-xs text-brand font-medium">AI Tech Scholar</p>
           </div>
           <div className="h-8 w-8 rounded-full bg-slate-800 overflow-hidden border border-border">
             {user?.avatar && <Image src={user.avatar} alt="Avatar" width={32} height={32} className="h-full w-full object-cover" />}

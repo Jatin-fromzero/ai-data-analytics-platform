@@ -8,24 +8,24 @@ import { GlobalAIMentor } from '@/components/GlobalAIMentor';
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} - Data Analytics Career Path`,
+    default: `${siteConfig.name} - Technical Education OS`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
-  keywords: ['Data Analytics', 'SQL', 'Python', 'Tableau', 'AI Mentor', 'Data Engineering Course'],
+  keywords: ['AI Tech Education', 'SQL', 'Python', 'Next.js Dev', 'Digital Marketing', 'Data Analytics', 'AI Mentor'],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: siteConfig.url,
-    title: `${siteConfig.name} - Master Modern Data Analytics`,
+    title: `${siteConfig.name} - AI-Powered Technical OS`,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
       {
-        url: '/og-image.png', // Placeholder, we can add a real one later
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} Preview`,
@@ -34,10 +34,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} - The Ultimate Analytics Path`,
+    title: `${siteConfig.name} - AI-Powered Technical OS`,
     description: siteConfig.description,
     images: ['/og-image.png'],
-    creator: '@aianalyticshub',
+    creator: '@aieducareos',
   },
   robots: {
     index: true,
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: '16-Week Data Analytics Path',
+    name: 'AI Tech Educare OS - Course Suite',
     description: siteConfig.description,
     provider: {
       '@type': 'Organization',

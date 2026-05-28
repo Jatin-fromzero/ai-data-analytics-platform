@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: 'AI Data Analytics Platform',
-  description: 'A modern, scalable career platform for data analytics and AI professionals.',
+  name: 'AI Tech Educare OS',
+  description: 'A modern, scalable technical education operating system powered by Socratic AI mentors.',
   url: 'https://your-platform.example',
   links: {
     github: 'https://github.com/your-org',

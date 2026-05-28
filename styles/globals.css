@@ -28,27 +28,27 @@ body::selection {
 }
 
 [data-theme='dark'] {
-  --bg: 222 47% 5%;
-  --surface: 221 61% 8%;
-  --surface-2: 222 57% 12%;
-  --border: 221 41% 15%;
+  --bg: 224 71% 4%;
+  --surface: 224 71% 7%;
+  --surface-2: 224 64% 10%;
+  --border: 224 32% 16%;
   --text: 210 40% 98%;
-  --muted: 215 16% 65%;
-  --accent: 15 100% 60%;
+  --muted: 217.9 10.6% 64.9%;
+  --accent: 15 100% 55%;
   --accent-foreground: 0 0% 100%;
-  --shadow: 0 24px 100px rgba(15, 23, 42, 0.25);
+  --shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
 }
 
 [data-theme='light'] {
-  --bg: 0 0% 100%;
-  --surface: 210 40% 98%;
-  --surface-2: 210 40% 96%;
-  --border: 213 27% 84%;
-  --text: 222 47% 11%;
-  --muted: 215 14% 47%;
-  --accent: 226 71% 40%;
+  --bg: 0 0% 99%;
+  --surface: 210 40% 96%;
+  --surface-2: 210 40% 93%;
+  --border: 214.3 31.8% 91.4%;
+  --text: 222.2 84% 4.9%;
+  --muted: 215.4 16.3% 46.9%;
+  --accent: 226 71% 45%;
   --accent-foreground: 0 0% 100%;
-  --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  --shadow: 0 20px 50px rgba(15, 23, 42, 0.05);
 }
 
 html,
@@ -60,7 +60,9 @@ body {
   margin: 0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background: hsl(var(--bg));
+  letter-spacing: -0.011em;
 }
 
 img,
@@ -81,35 +83,56 @@ select {
 }
 
 .container {
-  width: min(100%, 1200px);
+  width: min(100%, 1280px);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 2rem;
 }
 
+/* ─── Premium Apple Glassmorphism ─────────────────────────────────────────── */
 .glass-card {
-  background: rgba(15, 23, 42, 0.72);
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  backdrop-filter: blur(24px);
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22);
+  background: rgba(10, 11, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-glass {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme='light'] .glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* ─── View Transitions Animation (Theme Ripple) ────────────────────────────────────────────── */
+[data-theme='light'] .apple-glass {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* ─── View Transitions Animation (Theme Ripple) ────────────────────────────── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-/* The dark theme animation expands a dark circle */
 ::view-transition-old(root) {
   z-index: 1;
 }
+
 ::view-transition-new(root) {
   z-index: 2;
 }
@@ -117,13 +140,12 @@ select {
 [data-theme="dark"]::view-transition-old(root) {
   z-index: 2;
 }
+
 [data-theme="dark"]::view-transition-new(root) {
   z-index: 1;
 }
 
-/* ─── Hero Background Data Grid ────────────────────────────────────────────── */
-/* Very subtle analytics-style grid pattern in the hero section.
-   Low opacity preserves readability absolutely. */
+/* ─── Hero Background Data Grid ─────────────────────────────────────────────── */
 .hero-grid-bg {
   position: relative;
   overflow: hidden;
@@ -142,31 +164,130 @@ select {
   z-index: 0;
 }
 
-.hero-grid-bg > * {
+.hero-grid-bg>* {
   position: relative;
   z-index: 1;
 }
 
-/* ─── Radial Fade (for loading screen overlay) ──────────────────────────────── */
+/* ─── Radial Fade (for loading screen overlay) ───────────────────────────── */
 .bg-radial-fade {
   background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 30%, #020617 100%);
 }
 
-/* ─── Soft Section Dividers ─────────────────────────────────────────────────── */
+/* ─── Soft Section Dividers ──────────────────────────────────────────────── */
 .section-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.12) 30%, rgba(148, 163, 184, 0.12) 70%, transparent);
 }
 
-/* ─── Navbar scroll shadow ───────────────────────────────────────────────────── */
+/* ─── Navbar scroll shadow ───────────────────────────────────────────────── */
 .nav-scrolled {
   box-shadow: 0 1px 40px rgba(2, 6, 23, 0.6);
 }
 
-/* ─── Reduced Motion Accessibility ──────────────────────────────────────────── */
-/* When user has prefers-reduced-motion, disable all Framer Motion transforms.
-   Opacity transitions are preserved as they don't trigger vestibular issues. */
+/* ─── Premium Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 53, 0.35);
+}
+
+/* ─── Apple-Style Focus Rings ────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(255, 107, 53, 0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Glow text utility ──────────────────────────────────────────────────── */
+.text-glow {
+  text-shadow: 0 0 40px rgba(255, 107, 53, 0.4);
+}
+
+/* ─── Shimmer animation (for skeleton/loading states) ───────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.03) 25%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ─── Floating glow orb (ambient bg element) ─────────────────────────────── */
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.04);
+  }
+}
+
+@keyframes float-medium {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-12px) scale(1.02);
+  }
+}
+
+.float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.float-medium {
+  animation: float-medium 5s ease-in-out infinite;
+}
+
+/* ─── Gradient text utility ──────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF8F65 50%, #FFB347 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Line clamp utilities ───────────────────────────────────────────────── */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── Reduced Motion Accessibility ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   ::before,
   ::after {

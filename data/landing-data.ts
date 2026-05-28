@@ -149,18 +149,18 @@ export const features: PlatformFeature[] = [
 
 export const testimonials: Testimonial[] = [
   {
-    quote: 'The curriculum helped me move from spreadsheets to data storytelling with confidence.',
+    quote: 'The AI-first curriculum helped me build complex Next.js applications and deploy them with confidence.',
     name: 'Ava Chen',
-    role: 'Data Analyst'
+    role: 'Fullstack Developer'
   },
   {
-    quote: 'I built a portfolio project in weeks and felt ready to apply for roles.',
+    quote: 'I mastered programmatic ad campaigns and built a marketing portfolio that landed me my dream role.',
     name: 'Marcus Lee',
-    role: 'Analytics Associate'
+    role: 'Digital Marketing Strategist'
   },
   {
-    quote: 'The AI tool guidance made my workflow feel modern and highly productive.',
+    quote: 'The AI tool guidance for data science made my Python ML workflows modern and incredibly productive.',
     name: 'Nina Sharma',
-    role: 'Business Intelligence Specialist'
+    role: 'Data Scientist'
   }
 ];

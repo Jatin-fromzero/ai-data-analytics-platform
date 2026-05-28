@@ -7,43 +7,43 @@ import { Card } from '@/components/ui/card';
 const journeyPhases = [
   {
     phase: 'Phase 1: The Foundation',
-    title: 'Stop guessing. Start querying.',
-    desc: 'You\'ll start by mastering the absolute core of all data roles: SQL and Excel. No complex math yet, just learning how to ask a database questions and get correct answers.',
+    title: 'Stop guessing. Start building.',
+    desc: 'You\'ll start by mastering the absolute core of your chosen tech track. No complex theory, just learning how to use the fundamental tools and frameworks correctly.',
     icon: '🏗️',
     time: 'Weeks 1-3'
   },
   {
-    phase: 'Phase 2: Visual Storytelling',
-    title: 'Make data impossible to ignore.',
-    desc: 'Numbers are boring. You will learn Tableau and Power BI to build interactive, beautiful dashboards that executives actually want to look at.',
+    phase: 'Phase 2: Advanced Execution',
+    title: 'Make your work impossible to ignore.',
+    desc: 'Move past the basics. Learn to design, develop, or analyze at an industry level, creating assets and logic that businesses actually value.',
     icon: '🎨',
     time: 'Weeks 4-6'
   },
   {
-    phase: 'Phase 3: Python Automation',
-    title: 'Work 10x faster than average analysts.',
-    desc: 'Instead of manually cleaning spreadsheets for hours, you will write 10 lines of Python (Pandas) to clean 1 million rows of messy data in 3 seconds.',
+    phase: 'Phase 3: Automation & Scale',
+    title: 'Work 10x faster than the average professional.',
+    desc: 'Instead of doing manual repetitive work, you will learn to write scripts, automate pipelines, and use advanced tools to scale your output instantly.',
     icon: '⚡',
     time: 'Weeks 7-9'
   },
   {
     phase: 'Phase 4: AI-First Workflows',
     title: 'Your secret weapon.',
-    desc: 'We are the only platform that teaches you how to use GenAI (ChatGPT, Copilot) as your junior analyst. Write SQL faster, debug Python instantly, and generate executive summaries automatically.',
+    desc: 'We are the only platform that natively integrates GenAI into every discipline. Use Copilot, ChatGPT, and Midjourney as your junior assistants to debug, generate, and execute.',
     icon: '🤖',
     time: 'Weeks 10-12'
   },
   {
     phase: 'Phase 5: The Capstone Portfolio',
     title: 'Build undeniable proof.',
-    desc: 'You won\'t just get a certificate. You will build 4 real-world business projects (e.g., Churn Prediction, Sales Forecasting) and host them live on your GitHub and personal portfolio.',
+    desc: 'You won\'t just get a certificate. You will build 4 real-world business projects and host them live on your personal portfolio to prove your capability.',
     icon: '🚀',
     time: 'Weeks 13-15'
   },
   {
     phase: 'Phase 6: Career Launch',
     title: 'Get past the ATS scanners.',
-    desc: 'We optimize your resume, teach you how to pass the live technical SQL interviews, and use the STAR method to crush behavioral questions.',
+    desc: 'We optimize your resume, teach you how to pass live technical interviews, and use industry-standard frameworks to crush behavioral questions.',
     icon: '🎯',
     time: 'Week 16'
   }
@@ -59,7 +59,7 @@ export function TransformationStory() {
               Your 16-Week Transformation
             </h2>
             <p className="text-lg text-muted max-w-2xl mx-auto">
-              We don&apos;t just teach syntax. We rewire how you solve problems, moving you from a complete beginner to a highly confident, portfolio-ready analyst.
+              We don&apos;t just teach syntax. We rewire how you solve problems, moving you from a complete beginner to a highly confident, portfolio-ready professional.
             </p>
           </div>
         </ScrollReveal>

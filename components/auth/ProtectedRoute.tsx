@@ -16,11 +16,19 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   useEffect(() => {
     if (!isLoading) {
       if (!isAuthenticated) {
-        // Not logged in -> redirect to login
         router.replace('/login');
-      } else if (allowedRoles && user && !allowedRoles.includes(user.role)) {
-        // Logged in but wrong role -> redirect based on actual role
-        router.replace(user.role === 'admin' ? '/admin' : '/dashboard');
+      } else if (allowedRoles && user) {
+        // Expand legacy 'user' and 'admin' strings for backward compatibility
+        const expandedAllowedRoles = allowedRoles.flatMap(role => {
+          if ((role as string) === 'user') return ['student', 'demo_user'] as Role[];
+          if ((role as string) === 'admin') return ['admin', 'super_admin'] as Role[];
+          return [role];
+        });
+
+        if (!expandedAllowedRoles.includes(user.role)) {
+          const isAdmin = user.role === 'admin' || user.role === 'super_admin';
+          router.replace(isAdmin ? '/admin' : '/dashboard');
+        }
       }
     }
   }, [isLoading, isAuthenticated, user, router, allowedRoles]);
@@ -34,7 +42,13 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   }
 
   // Double check before rendering
-  if (!isAuthenticated || (allowedRoles && user && !allowedRoles.includes(user.role))) {
+  const expandedAllowedRoles = allowedRoles?.flatMap(role => {
+    if ((role as string) === 'user') return ['student', 'demo_user'] as Role[];
+    if ((role as string) === 'admin') return ['admin', 'super_admin'] as Role[];
+    return [role];
+  });
+
+  if (!isAuthenticated || (expandedAllowedRoles && user && !expandedAllowedRoles.includes(user.role))) {
     return null;
   }
 

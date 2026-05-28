@@ -62,7 +62,7 @@ export function LoadingScreen() {
                 AI
               </motion.span>
               <span className="text-lg font-semibold tracking-tight text-foreground">
-                AnalyticsHub
+                Educare OS
               </span>
             </div>
 
@@ -83,7 +83,7 @@ export function LoadingScreen() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.4 }}
             >
-              Initializing Analytics Workspace...
+              Initializing Educare Workspace...
             </motion.p>
           </motion.div>
         </motion.div>

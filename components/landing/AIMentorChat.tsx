@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -16,8 +17,12 @@ interface AIMentorChatProps {
 }
 
 export function AIMentorChat({ isOpen, onClose, initialMessage }: AIMentorChatProps) {
+  const params = useParams();
+  const courseSlug = params?.courseSlug as string | undefined;
+  const partSlug = params?.part as string | undefined;
+
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello! I'm your AI Career Mentor. I can help you understand the curriculum, plan your career path, or answer questions about data analytics. How can I help you today?" }
+    { role: 'assistant', content: "Hello! I'm your AI Tech Mentor. I can help you understand the curriculum, plan your career path, or debug your SQL and Python code live. How can I help you today?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +57,11 @@ export function AIMentorChat({ isOpen, onClose, initialMessage }: AIMentorChatPr
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMsg] })
+        body: JSON.stringify({ 
+          messages: [...messages, userMsg],
+          courseSlug,
+          partSlug
+        })
       });
 
       if (!response.ok) throw new Error('Failed to fetch response');

@@ -28,7 +28,7 @@ export function LessonRenderer({ content, activeSectionId }: LessonRendererProps
 
   const renderBlock = (block: Block, index: number) => {
     switch (block.type) {
-      case 'text':
+      case 'text': {
         // A simple markdown processor for bold (**), inline code (`), and lists
         const formattedContent = block.content.split('\n').map((line, lIdx) => {
           if (line.trim().startsWith('- ')) {
@@ -50,6 +50,7 @@ export function LessonRenderer({ content, activeSectionId }: LessonRendererProps
             {formattedContent}
           </div>
         );
+      }
 
       case 'callout': {
         // Resolve default icon & accent color if not explicitly provided

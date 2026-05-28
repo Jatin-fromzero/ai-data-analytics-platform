@@ -2,10 +2,13 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { AuthCard } from '@/components/auth/AuthCard';
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { apiClient } from '@/frontend/lib/api-client';
+import { useAuth } from '@/lib/auth-context';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -15,6 +18,8 @@ export default function SignupPage() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
+  const { login } = useAuth();
 
   const getPasswordStrength = (pw: string) => {
     if (pw.length === 0) return null;
@@ -38,8 +43,8 @@ export default function SignupPage() {
       setError('Passwords do not match.');
       return;
     }
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters.');
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
       return;
     }
     if (!agreedToTerms) {
@@ -49,23 +54,39 @@ export default function SignupPage() {
 
     setIsLoading(true);
     try {
-      // TODO: await signUp(email, password, name);
-      // TODO: router.push('/dashboard');
-      await new Promise((r) => setTimeout(r, 1400));
-      setError('Auth not connected yet. Wire up Firebase to complete signup.');
-    } finally {
+      const res = await apiClient.post<any>('/api/auth/signup', { name, email, password });
+      if (!res.success) {
+        setError(res.error || 'Signup failed.');
+        setIsLoading(false);
+        return;
+      }
+
+      // If signup succeeded, log them in instantly and redirect
+      await login(email, password);
+    } catch (err: any) {
+      setError(err.message || 'Failed to create account.');
       setIsLoading(false);
     }
   };
 
   return (
-    <AuthCard
-      title="Create your account"
-      subtitle="Start your AI analytics journey today — free"
-      footerText="Already have an account?"
-      footerLinkText="Sign in"
-      footerLinkHref="/login"
-    >
+    <div className="relative min-h-screen bg-[#07070E] flex flex-col items-center justify-center px-4 py-16 overflow-hidden">
+      {/* Background radial glows */}
+      <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      {/* Back to Home Button */}
+      <Link href="/" className="absolute top-8 left-8 text-xs text-muted hover:text-foreground transition-colors flex items-center gap-1.5 font-medium">
+        ← Back to home
+      </Link>
+
+      <AuthCard
+        title="Create your account"
+        subtitle="Start your AI learning journey today — free"
+        footerText="Already have an account?"
+        footerLinkText="Sign in"
+        footerLinkHref="/login"
+      >
       {/* Google sign-up */}
       <GoogleSignInButton isLoading={isLoading} label="Sign up with Google" />
 
@@ -177,16 +198,16 @@ export default function SignupPage() {
               </svg>
             )}
           </button>
-          <span className="text-xs leading-relaxed text-muted">
-            I agree to the{' '}
-            <Link href="#" className="text-brand underline underline-offset-2 hover:text-brand/80">
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link href="#" className="text-brand underline underline-offset-2 hover:text-brand/80">
-              Privacy Policy
-            </Link>
-          </span>
+            <span className="text-xs leading-relaxed text-muted">
+              I agree to the{' '}
+              <Link href="/terms" className="text-brand underline underline-offset-2 hover:text-brand/80">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link href="/privacy" className="text-brand underline underline-offset-2 hover:text-brand/80">
+                Privacy Policy
+              </Link>
+            </span>
         </div>
 
         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
@@ -204,5 +225,6 @@ export default function SignupPage() {
         </Button>
       </form>
     </AuthCard>
+    </div>
   );
 }
